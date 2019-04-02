@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ProjetMObile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="font_bold">sans-serif-medium</string>
+    <string name="font_light">sans-serif</string>
+    <string name="mercedes">Mercedes</string>
+</resources>

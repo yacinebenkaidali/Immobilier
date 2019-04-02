@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_graph"
+            app:startDestination="@id/ads">
+
+    <fragment
+            android:id="@+id/ads"
+            android:name="com.esi.projetmobile.Fragement.Ads"
+            android:label="fragment_ads"
+            tools:layout="@layout/fragment_ads">
+        <action android:id="@+id/action_ads_to_accountFragement" app:destination="@id/accountFragement"/>
+        <action android:id="@+id/action_ads_to_settingsFragement" app:destination="@id/settingsFragement"/>
+        <argument android:name="argsName" app:argType="string" android:defaultValue="Empty"/>
+    </fragment>
+    <fragment android:id="@+id/accountFragement" android:name="com.esi.projetmobile.Fragement.AccountFragement"
+              android:label="fragment_account_fragement" tools:layout="@layout/fragment_account_fragement"/>
+    <fragment android:id="@+id/settingsFragement" android:name="com.esi.projetmobile.Fragement.SettingsFragement"
+              android:label="fragment_settings_fragement" tools:layout="@layout/fragment_settings_fragement"/>
+</navigation>

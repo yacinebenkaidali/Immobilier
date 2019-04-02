@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:orientation="vertical">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter a RealEstate Info"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
+    <EditText
+            android:id="@+id/textOwner"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Owner name"
+            android:inputType="textCapWords"/>
+
+    <EditText
+            android:id="@+id/textSquareFoot"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Square Footage"
+            android:inputType="numberDecimal"/>
+
+    <EditText
+            android:id="@+id/textCond"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Condition"
+            android:inputType="text"/>
+
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <Button
+                android:id="@+id/btnCancel"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"/>
+
+        <Button
+                android:id="@+id/btnImg"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Image"/>
+
+        <Button
+                android:id="@+id/btnOk"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"/>
+
+    </LinearLayout>
+
+</LinearLayout>
