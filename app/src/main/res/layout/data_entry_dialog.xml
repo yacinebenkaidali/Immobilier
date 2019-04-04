@@ -15,25 +15,24 @@
             android:textSize="24sp"/>
 
     <EditText
-            android:id="@+id/textOwner"
+            android:id="@+id/Owner"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Owner name"
-            android:inputType="textCapWords"/>
+            android:hint="Owner name"/>
 
     <EditText
-            android:id="@+id/textSquareFoot"
+            android:id="@+id/SquareFoot"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Square Footage"
-            android:inputType="numberDecimal"/>
+            android:inputType="number"/>
 
     <EditText
-            android:id="@+id/textCond"
+            android:id="@+id/Cond"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="Condition"
-            android:inputType="text"/>
+    />
 
     <LinearLayout
         android:id="@+id/button_container"

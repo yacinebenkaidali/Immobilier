@@ -16,7 +16,7 @@
             android:minHeight="?attr/actionBarSize" android:id="@+id/toolbar">
         <SearchView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" android:id="@+id/filterList"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -24,17 +24,7 @@
             android:layout_width="match_parent" android:layout_height="match_parent"
             tools:context=".MainActivity">
 
-        <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                app:srcCompat="@drawable/ic_add_circle_black_48dp"
-                android:id="@+id/addrealestate"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="48dp" android:focusable="true"
-                app:backgroundTint="@color/colorPrimary"/>
+
 
         <fragment android:layout_width="match_parent"
                   android:layout_height="wrap_content"
