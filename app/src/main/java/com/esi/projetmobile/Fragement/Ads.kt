@@ -73,6 +73,7 @@ class Ads : Fragment() {
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
+                Log.i("insert","Okay")
                 dialog.dismiss()
             }
         }
@@ -168,7 +169,6 @@ class Ads : Fragment() {
             mView.SquareFoot.text.toString().toDouble()
         )
         realEstateList.add(realEstate)
-        adapter.addRealEtate(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
     }
 
