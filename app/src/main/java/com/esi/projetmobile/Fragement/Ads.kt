@@ -18,6 +18,7 @@ import com.esi.projetmobile.Adapter.RealEstateAdapter
 import com.esi.projetmobile.Model.RealEstate
 import com.esi.projetmobile.R
 import com.esi.projetmobile.Utils.Utils
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
 
@@ -43,10 +44,10 @@ class Ads : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
         realEstateList = mutableListOf(
-            RealEstate(1, "yacine", "Nice one", 154.02),
-            RealEstate(1, "zineddine", "5050", 202.02),
-            RealEstate(1, "Ahmed", "Acceptable", 95.02),
-            RealEstate(1, "Raouf", "Nice one", 310.02)
+            RealEstate(1, "yacine", "Nice one", 154.02,"geo:36.7538,3.0588"),
+            RealEstate(1, "zineddine", "5050", 202.02,"geo:37.7749,-122.4194"),
+            RealEstate(1, "Ahmed", "Acceptable", 95.02,"geo:37.7749,-122.4194"),
+            RealEstate(1, "Raouf", "Nice one", 310.02,"geo:37.7749,-122.4194")
         )
     }
 
@@ -73,13 +74,12 @@ class Ads : Fragment() {
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
-                Log.i("insert","Okay")
+                Log.i("insert", "Okay")
                 dialog.dismiss()
             }
         }
 
-        activity!!.findViewById<SearchView>(R.id.filterList)
-            .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     adapter.filter.filter(query)
                     return false
@@ -166,7 +166,8 @@ class Ads : Fragment() {
             1,
             mView.Owner.text.toString(),
             mView.Cond.text.toString(),
-            mView.SquareFoot.text.toString().toDouble()
+            mView.SquareFoot.text.toString().toDouble(),
+        "geo:37.7749,-122.4194"
         )
         realEstateList.add(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()

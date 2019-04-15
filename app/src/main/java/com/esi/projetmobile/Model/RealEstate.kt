@@ -11,13 +11,15 @@ import android.graphics.Bitmap
         var owner: String
         var condition: String
         var squareFootage: Double
+        var coordinates :String
         lateinit var images:MutableList<Bitmap>
 
-        constructor(id: Int, owner: String, condition: String, squareFootage: Double) {
+        constructor(id: Int, owner: String, condition: String, squareFootage: Double,coordinates:String) {
             this.id = id
             this.owner = owner
             this.condition = condition
             this.squareFootage = squareFootage
+            this.coordinates =coordinates
         }
 
 
