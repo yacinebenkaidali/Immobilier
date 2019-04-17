@@ -46,8 +46,8 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
         val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
-        if (realEstate.images.size !=0) {
-            p0.realEstatewImg.setImageURI(realEstate.images[0])
+        if (realEstate.images.size != 0) {
+            p0.realEstatewImg.setImageURI(realEstate.images[0])//data base table will contain uri.toString() and when we get the object we'll use Uri.parse(that String)
         }
         p0.detailButton.setOnClickListener {
             val args = Bundle()
@@ -57,7 +57,6 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
         p0.itemCard.setOnClickListener {
             displayDialog(realEstate)
         }
-
     }
 
 
@@ -71,7 +70,7 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
 
     override fun getFilter(): Filter {
         return object : Filter() {
-            override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val charString = charSequence.toString()
                 realEstateListFiltered = if (charString.isEmpty()) {
                     realEstateList
@@ -87,12 +86,12 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
                     }
                     filteredList
                 }
-                val filterResults = Filter.FilterResults()
+                val filterResults = FilterResults()
                 filterResults.values = realEstateListFiltered
                 return filterResults
             }
 
-            override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 realEstateListFiltered = filterResults.values as MutableList<RealEstate>
                 notifyDataSetChanged()
             }
