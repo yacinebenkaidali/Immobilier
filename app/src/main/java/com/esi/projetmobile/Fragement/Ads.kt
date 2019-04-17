@@ -23,31 +23,25 @@ import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 val spinnerChoices = arrayOf("Owner", "SquareFootage")
 
 class Ads : Fragment() {
 
-    private var param1: String? = null
-    private var param2: String? = null
+
     private var listener: OnFragmentInteractionListener? = null
     private var utils = Utils()
     private lateinit var adapter: RealEstateAdapter
+    private  var realEstate= RealEstate()
 
     lateinit var realEstateList: MutableList<RealEstate>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
         realEstateList = mutableListOf(
-            RealEstate(1, "yacine", "Nice one", 154.02,"geo:36.7538,3.0588"),
-            RealEstate(1, "zineddine", "5050", 202.02,"geo:37.7749,-122.4194"),
-            RealEstate(1, "Ahmed", "Acceptable", 95.02,"geo:37.7749,-122.4194"),
-            RealEstate(1, "Raouf", "Nice one", 310.02,"geo:37.7749,-122.4194")
+            RealEstate(1, "yacine", "Nice one", 154.02, "geo:36.7538,3.0588"),
+            RealEstate(1, "zineddine", "5050", 202.02, "geo:37.7749,-122.4194"),
+            RealEstate(1, "Ahmed", "Acceptable", 95.02, "geo:37.7749,-122.4194"),
+            RealEstate(1, "Raouf", "Nice one", 310.02, "geo:37.7749,-122.4194")
         )
     }
 
@@ -70,7 +64,11 @@ class Ads : Fragment() {
             dialog.setCanceledOnTouchOutside(true)
             dialog.show()
             mView.btnImg.setOnClickListener {
-                utils.openDialog(dialog, context!!)
+                //utils.openImageChooser(dialog, context!!)
+                val intent = Intent()
+                    .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    .setAction(Intent.ACTION_GET_CONTENT)
+                startActivityForResult(Intent.createChooser(intent, "Select a file"), 301)
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
@@ -80,18 +78,16 @@ class Ads : Fragment() {
         }
 
         activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    adapter.filter.filter(query)
-                    return false
-                }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter.filter.filter(query)
+                return false
+            }
 
-                override fun onQueryTextChange(query: String): Boolean {
-                    adapter.filter.filter(query)
-                    return true
-                }
-            })
-
-
+            override fun onQueryTextChange(query: String): Boolean {
+                adapter.filter.filter(query)
+                return true
+            }
+        })
     }
 
     override fun onResume() {
@@ -141,33 +137,30 @@ class Ads : Fragment() {
         listener?.onFragmentInteraction(uri)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Ads().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.i("nice", "cool")
         if ((requestCode == 301) && (resultCode == Activity.RESULT_OK)) {
-            val uri = data?.data
-            val filePath = uri?.path
+            if (data!!.data != null) {
+                realEstate.images.add(data.data!!)
+            } else if (data.clipData != null) {
+                var clipArray = data.clipData
+                for (i in 0 until clipArray!!.itemCount) {
+                    realEstate.images.add(clipArray.getItemAt(i).uri)
+                }
+                Log.i("size", realEstate.images.size.toString())
+            }
         }
     }
 
     private fun addItem(mView: View) {
-
-        val realEstate = RealEstate(
+        realEstate = RealEstate(
             1,
             mView.Owner.text.toString(),
             mView.Cond.text.toString(),
             mView.SquareFoot.text.toString().toDouble(),
-        "geo:37.7749,-122.4194"
+            "geo:37.7749,-122.4194"
         )
         realEstateList.add(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()

@@ -1,12 +1,14 @@
 package com.esi.projetmobile.Adapter
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -29,6 +31,8 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
     private var realEstateList: MutableList<RealEstate> = realEstateList
     private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
     private var context = context
+    private val CALL_REQUEST = 100
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.realestate_item, p0, false)
         return ViewHolder(view)
@@ -125,16 +129,17 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
                 }
             }
             .setNegativeButton("Call his/her Phone") { dialog, id ->
-                val callIntent = Intent(Intent.ACTION_CALL)
+                val callIntent = Intent(Intent.ACTION_DIAL)
                 callIntent.data = Uri.parse("tel:" + 8802177690)//Owner's phone number
                 if (ContextCompat.checkSelfPermission(
                         context,
                         Manifest.permission.CALL_PHONE
                     ) != PackageManager.PERMISSION_GRANTED
                 ) {
-//                    ActivityCompat.requestPermissions(context as Activity
-//                        ,  arrayOf(Manifest.permission.CALL_PHONE),);
-                    // TODO check this one later
+                    ActivityCompat.requestPermissions(
+                        context as Activity
+                        , arrayOf(Manifest.permission.CALL_PHONE), CALL_REQUEST
+                    )
                     Toast.makeText(context, "grant me permissions", Toast.LENGTH_LONG).show()
                 } else {
                     context.startActivity(callIntent)
@@ -145,4 +150,5 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
         alert.setTitle("AlertDialogExample")
         alert.show()
     }
+
 }
