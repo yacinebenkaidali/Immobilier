@@ -46,7 +46,9 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
         val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
-        // p0.realEstatewImg.setI=realEstate.owner
+        if (realEstate.images.size !=0) {
+            p0.realEstatewImg.setImageURI(realEstate.images[0])
+        }
         p0.detailButton.setOnClickListener {
             val args = Bundle()
             args.putString("Name", realEstate.owner)

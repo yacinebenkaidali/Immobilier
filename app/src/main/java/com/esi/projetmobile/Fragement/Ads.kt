@@ -70,8 +70,6 @@ class Ads : Fragment() {
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
-                Log.i("insert", "Okay")
-
                 dialog.dismiss()
             }
         }
