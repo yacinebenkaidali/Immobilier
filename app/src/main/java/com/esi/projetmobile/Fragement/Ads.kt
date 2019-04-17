@@ -23,25 +23,24 @@ import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
 
 
-val spinnerChoices = arrayOf("Owner", "SquareFootage")
-
 class Ads : Fragment() {
 
 
     private var listener: OnFragmentInteractionListener? = null
     private var utils = Utils()
     private lateinit var adapter: RealEstateAdapter
-    private  var realEstate= RealEstate()
+    private var uriList = mutableListOf<Uri>()
+
 
     lateinit var realEstateList: MutableList<RealEstate>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         realEstateList = mutableListOf(
-            RealEstate(1, "yacine", "Nice one", 154.02, "geo:36.7538,3.0588"),
-            RealEstate(1, "zineddine", "5050", 202.02, "geo:37.7749,-122.4194"),
-            RealEstate(1, "Ahmed", "Acceptable", 95.02, "geo:37.7749,-122.4194"),
-            RealEstate(1, "Raouf", "Nice one", 310.02, "geo:37.7749,-122.4194")
+            RealEstate(1, "yacine", "Nice one", 154.02, "geo:36.7538,3.0588", mutableListOf()),
+            RealEstate(1, "zineddine", "5050", 202.02, "geo:37.7749,-122.4194", mutableListOf()),
+            RealEstate(1, "Ahmed", "Acceptable", 95.02, "geo:37.7749,-122.4194", mutableListOf()),
+            RealEstate(1, "Raouf", "Nice one", 310.02, "geo:37.7749,-122.4194", mutableListOf())
         )
     }
 
@@ -64,7 +63,6 @@ class Ads : Fragment() {
             dialog.setCanceledOnTouchOutside(true)
             dialog.show()
             mView.btnImg.setOnClickListener {
-                //utils.openImageChooser(dialog, context!!)
                 val intent = Intent()
                     .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                     .setAction(Intent.ACTION_GET_CONTENT)
@@ -73,6 +71,7 @@ class Ads : Fragment() {
             mView.btnOk.setOnClickListener {
                 addItem(mView)
                 Log.i("insert", "Okay")
+
                 dialog.dismiss()
             }
         }
@@ -140,27 +139,26 @@ class Ads : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.i("nice", "cool")
         if ((requestCode == 301) && (resultCode == Activity.RESULT_OK)) {
             if (data!!.data != null) {
-                realEstate.images.add(data.data!!)
+                uriList.add(data.data!!)
             } else if (data.clipData != null) {
                 var clipArray = data.clipData
                 for (i in 0 until clipArray!!.itemCount) {
-                    realEstate.images.add(clipArray.getItemAt(i).uri)
+                    uriList.add(clipArray.getItemAt(i).uri)
                 }
-                Log.i("size", realEstate.images.size.toString())
             }
         }
     }
 
     private fun addItem(mView: View) {
-        realEstate = RealEstate(
+        val realEstate = RealEstate(
             1,
             mView.Owner.text.toString(),
             mView.Cond.text.toString(),
             mView.SquareFoot.text.toString().toDouble(),
-            "geo:37.7749,-122.4194"
+            "geo:37.7749,-122.4194",
+            uriList
         )
         realEstateList.add(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
