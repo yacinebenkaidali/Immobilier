@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.esi.projetmobile.R
+import kotlinx.android.synthetic.main.details_fragement.view.*
 
 
 class DetailsFragment : Fragment() {
@@ -18,7 +19,10 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.details_fragement, container, false)
+        val view = inflater.inflate(R.layout.details_fragement, container, false)
+        view.users_name.text = arguments!!.getString("Name")
+        view.users_img.setImageURI(Uri.parse(arguments!!.getString("Photo")))
+        return view
     }
 
     fun onButtonPressed(uri: Uri) {

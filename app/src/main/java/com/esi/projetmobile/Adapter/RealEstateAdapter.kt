@@ -24,13 +24,11 @@ import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.realestate_item.view.*
 
 
-class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Context) :
+class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
 
 
-    private var realEstateList: MutableList<RealEstate> = realEstateList
     private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
-    private var context = context
     private val CALL_REQUEST = 100
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
@@ -41,7 +39,6 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
     override fun getItemCount(): Int {
         return realEstateListFiltered.size
     }
-
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
@@ -52,6 +49,8 @@ class RealEstateAdapter(realEstateList: MutableList<RealEstate>, context: Contex
         p0.detailButton.setOnClickListener {
             val args = Bundle()
             args.putString("Name", realEstate.owner)
+//            args.putString("Phone",realEstate.phone)
+            args.putString("Photo",realEstate.images[0].toString())
             Navigation.findNavController(it).navigate(R.id.action_ads_to_DetailFragment, args)
         }
         p0.itemCard.setOnClickListener {
