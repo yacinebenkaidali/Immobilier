@@ -19,16 +19,16 @@ import android.widget.Filterable
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.esi.projetmobile.Adapter.RealEstateAdapter.ViewHolder
-import com.esi.projetmobile.Model.RealEstate
+import com.esi.projetmobile.Model.Estate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.realestate_item.view.*
 
 
-class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
+class RealEstateAdapter(private var realEstateList: MutableList<Estate>, private var context: Context) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
 
 
-    private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
+    private var realEstateListFiltered: MutableList<Estate> = realEstateList
     private val CALL_REQUEST = 100
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
@@ -43,14 +43,14 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
-        if (realEstate.images.size != 0) {
-            p0.realEstatewImg.setImageURI(realEstate.images[0])//data base table will contain uri.toString() and when we get the object we'll use Uri.parse(that String)
-        }
+//        if (realEstate.images.size != 0) {
+//            p0.realEstatewImg.setImageURI(realEstate.images[0])//data base table will contain uri.toString() and when we get the object we'll use Uri.parse(that String)
+//        }
         p0.detailButton.setOnClickListener {
             val args = Bundle()
             args.putString("Name", realEstate.owner)
 //            args.putString("Phone",realEstate.phone)
-            args.putString("Photo",realEstate.images[0].toString())
+//            args.putString("Photo",realEstate.images[0].toString())
             Navigation.findNavController(it).navigate(R.id.action_ads_to_DetailFragment, args)
         }
         p0.itemCard.setOnClickListener {
@@ -74,7 +74,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
                 realEstateListFiltered = if (charString.isEmpty()) {
                     realEstateList
                 } else {
-                    val filteredList = mutableListOf<RealEstate>()
+                    val filteredList = mutableListOf<Estate>()
                     for (row in realEstateList) {
                         if (row.owner.toLowerCase().contains(charString.toLowerCase()) || row.condition.contains(
                                 charSequence
@@ -91,13 +91,13 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                realEstateListFiltered = filterResults.values as MutableList<RealEstate>
+                realEstateListFiltered = filterResults.values as MutableList<Estate>
                 notifyDataSetChanged()
             }
         }
     }
 
-    fun addRealEtate(realEstate: RealEstate) {
+    fun addRealEtate(realEstate: Estate) {
         realEstateListFiltered.add(realEstate)
         realEstateList.add(realEstate)
     }
@@ -115,7 +115,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         })
     }
 
-    private fun displayDialog(realEstate: RealEstate) {
+    private fun displayDialog(realEstate: Estate) {
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setTitle("Choose your action ?")
         dialogBuilder.setMessage("Which action u want to go to ?!")

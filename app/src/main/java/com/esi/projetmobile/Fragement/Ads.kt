@@ -1,46 +1,43 @@
 package com.esi.projetmobile.Fragement
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
 import com.esi.projetmobile.Adapter.RealEstateAdapter
-import com.esi.projetmobile.Model.RealEstate
+import com.esi.projetmobile.Model.Estate
+import com.esi.projetmobile.Model.Images
 import com.esi.projetmobile.R
 import com.esi.projetmobile.Utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
+import java.util.*
 
 
 class Ads : Fragment() {
-
-
-    private var listener: OnFragmentInteractionListener? = null
     private var utils = Utils()
     private lateinit var adapter: RealEstateAdapter
     private var uriList = mutableListOf<Uri>()
 
 
-    lateinit var realEstateList: MutableList<RealEstate>
+    lateinit var realEstateList: MutableList<Estate>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         realEstateList = mutableListOf(
-            RealEstate(1, "yacine", "Nice one", 154.02, "geo:36.7538,3.0588", mutableListOf()),
-            RealEstate(1, "zineddine", "5050", 202.02, "geo:37.7749,-122.4194", mutableListOf()),
-            RealEstate(1, "Ahmed", "Acceptable", 95.02, "geo:37.7749,-122.4194", mutableListOf()),
-            RealEstate(1, "Raouf", "Nice one", 310.02, "geo:37.7749,-122.4194", mutableListOf())
+//            Estate(1, "yacine", "Nice one", 154.02, "geo:36.7538,3.0588", Image(0,"")),
+//            Estate(1, "zineddine", "5050", 202.02, "geo:37.7749,-122.4194", mutableListOf()),
+//            Estate(1, "Ahmed", "Acceptable", 95.02, "geo:37.7749,-122.4194", mutableListOf()),
+//            Estate(1, "Raouf", "Nice one", 310.02, "geo:37.7749,-122.4194", mutableListOf())
         )
     }
 
@@ -70,6 +67,9 @@ class Ads : Fragment() {
             }
             mView.btnOk.setOnClickListener {
                 addItem(mView)
+                dialog.dismiss()
+            }
+            mView.btnCancel.setOnClickListener {
                 dialog.dismiss()
             }
         }
@@ -112,28 +112,6 @@ class Ads : Fragment() {
         realestatelist.adapter = adapter
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        }
-    }
-
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -150,13 +128,12 @@ class Ads : Fragment() {
     }
 
     private fun addItem(mView: View) {
-        val realEstate = RealEstate(
+        val realEstate = Estate(
             1,
             mView.Owner.text.toString(),
             mView.Cond.text.toString(),
             mView.SquareFoot.text.toString().toDouble(),
-            "geo:37.7749,-122.4194",
-            uriList
+            "geo:37.7749,-122.4194", Date(), 1
         )
         realEstateList.add(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
