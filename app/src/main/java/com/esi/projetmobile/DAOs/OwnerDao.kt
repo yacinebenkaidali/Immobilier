@@ -19,4 +19,7 @@ interface OwnerDao {
 
     @Query("SELECT * FROM owner WHERE id=:id")
     fun getOwnerById(id: Int): Owner
+
+    @Query("select count(*) from owner")
+    fun getCount(): Int
 }
