@@ -8,14 +8,13 @@ import java.util.*
 
 @Entity(
     tableName = "Estate", foreignKeys = [ForeignKey(
-        entity = Estate::class,
+        entity = Owner::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("owner_id"),
-        onDelete = ForeignKey.CASCADE
+        childColumns = arrayOf("owner_id")
     )]
 )
 data class Estate(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id: Int,
     var owner: String,
     var condition: String,

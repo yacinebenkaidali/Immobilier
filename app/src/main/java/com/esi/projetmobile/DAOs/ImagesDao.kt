@@ -1,23 +1,25 @@
 package com.esi.projetmobile.DAOs
 
 import android.arch.persistence.room.*
-import com.esi.projetmobile.Model.Images
+import com.esi.projetmobile.Model.Image
 
 @Dao
 interface ImagesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertImage(owner: Images)
+    fun insertImage(image: Image)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllImages(ownerList: MutableList<Images>)
+    fun insertAllImages(imageList: MutableList<Image>)
 
     @Delete
-    fun deleteImage(owner: Images)
+    fun deleteImage(img: Image)
 
     @Query("SELECT * FROM image")
-    fun getAllImages(): MutableList<Images>
+    fun getAllImages(): MutableList<Image>
 
     @Query("SELECT * FROM Image WHERE id=:id")
-    fun getImageById(id: Int): Images
+    fun getImageById(id: Int): Image
 
+    @Query("select count(*) from image")
+    fun getCount():Int
 }

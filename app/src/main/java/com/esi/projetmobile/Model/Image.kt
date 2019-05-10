@@ -10,14 +10,13 @@ import android.net.Uri
     tableName = "Image", foreignKeys = [ForeignKey(
         entity = Estate::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("estate_id"),
-        onDelete = ForeignKey.CASCADE
+        childColumns = arrayOf("estate_id")
     )]
 )
-class Images(
-    @PrimaryKey(autoGenerate = true)
+class Image(
+    @PrimaryKey
     var id: Int,
+    var uri: String,
     @ColumnInfo(name = "estate_id")
-    var estateId: Int,
-    var uri: Uri
+    var estateId: Int
 )

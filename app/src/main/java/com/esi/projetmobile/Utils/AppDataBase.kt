@@ -9,11 +9,11 @@ import com.esi.projetmobile.DAOs.EstateDao
 import com.esi.projetmobile.DAOs.ImagesDao
 import com.esi.projetmobile.DAOs.OwnerDao
 import com.esi.projetmobile.Model.Estate
-import com.esi.projetmobile.Model.Images
+import com.esi.projetmobile.Model.Image
 import com.esi.projetmobile.Model.Owner
 
-@Database(entities = [Estate::class, Owner::class, Images::class], version = 1)
-@TypeConverters(DateConverter::class, UriConverter::class)
+@Database(entities = [Estate::class, Owner::class, Image::class], version = 1)
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun estateDao(): EstateDao
     abstract fun imagesDao(): ImagesDao

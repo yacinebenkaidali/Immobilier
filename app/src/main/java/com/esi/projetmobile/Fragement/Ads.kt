@@ -14,7 +14,6 @@ import android.widget.AdapterView
 import android.widget.SearchView
 import com.esi.projetmobile.Adapter.RealEstateAdapter
 import com.esi.projetmobile.Model.Estate
-import com.esi.projetmobile.Model.Images
 import com.esi.projetmobile.R
 import com.esi.projetmobile.Utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*

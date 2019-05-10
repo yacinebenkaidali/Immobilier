@@ -11,7 +11,7 @@ interface EstateDao {
     fun insertEstate(estate: Estate)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEstateExist(estateList: MutableList<Estate>)
+    fun insertEstateList(estateList: MutableList<Estate>)
 
     @Delete
     fun deleteEstate(estate: Estate)

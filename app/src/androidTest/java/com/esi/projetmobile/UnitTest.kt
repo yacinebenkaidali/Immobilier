@@ -3,15 +3,18 @@ package com.esi.projetmobile
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import android.util.Log
 import com.esi.projetmobile.DAOs.EstateDao
+import com.esi.projetmobile.DAOs.ImagesDao
 import com.esi.projetmobile.DAOs.OwnerDao
 import com.esi.projetmobile.Model.Estate
+import com.esi.projetmobile.Model.Image
 import com.esi.projetmobile.Model.Owner
 import com.esi.projetmobile.Utils.AppDatabase
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import java.util.*
 
@@ -22,12 +25,14 @@ class UnitTest {
     private var app: AppDatabase? = null
     private var ownerDao: OwnerDao? = null
     private var estateDao: EstateDao? = null
+    private var imagesDao: ImagesDao? = null
 
     @Before
     fun createDb() {
-        app = Room.inMemoryDatabaseBuilder(appContext, AppDatabase::class.java).build()
+        app = AppDatabase.invoke(appContext)
         ownerDao = app!!.ownerDao()
-        estateDao= app!!.estateDao()
+        estateDao = app!!.estateDao()
+        imagesDao = app!!.imagesDao()
     }
 
     @After
@@ -42,19 +47,34 @@ class UnitTest {
             Owner(2, "mido", "223123")
         )
         ownerDao!!.insertAllOwners(list)
-        val count = ownerDao!!.getCount()
-        assertEquals(2, count)
+        val count: MutableList<Owner> = ownerDao!!.getAllOwners()
+        for (item in count) {
+            Log.i("JUnit", item.id.toString())
+        }
+        assertEquals(2, count.size)
     }
 
     @Test
     fun createAndInsertEstates() {
         val list = mutableListOf(
-            Estate(1, "yacine", "NIce", 13.3, "geo:37.7749,-122.4194", Date(), 1),
-            Estate(2, "mido", "NIce", 146.2, "geo:37.7749,-122.4194", Date(), 2)
+            Estate(1, "california", "Nice", 13.3, "geo:37.7749,-122.4194", Date(), 1),
+            Estate(2, "newyork", "Nice", 146.2, "geo:37.7749,-122.4194", Date(), 2)
         )
-        estateDao!!.insertEstateExist(list)
-        val count= estateDao!!.getCount()
-        assertEquals(count,2)
+        estateDao!!.insertEstateList(list)
+        val count = estateDao!!.getCount()
+        assertEquals(count, 2)
+    }
+
+    @Test
+    fun createAndInsertImages() {
+        val list = mutableListOf(
+            Image(1, "content://media/external/images/media/52", 1),
+            Image(2, "content://media/external/images/media/53", 2)
+        )
+        imagesDao!!.insertAllImages(list)
+//        imagesDao!!.insertImage( Image(1, 1, Uri.parse("content://media/external/images/media/52")))
+        val count = imagesDao!!.getCount()
+        assertEquals(2, count)
     }
 
 }
