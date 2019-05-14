@@ -29,10 +29,10 @@ class Ads : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var utils = Utils()
     private lateinit var adapter: RealEstateAdapter
-    private var uriList = mutableListOf<Uri>()
+    private var uriList = mutableListOf<String>()
 
 
-    lateinit var realEstateList: MutableList<RealEstate>
+    private lateinit var realEstateList: MutableList<RealEstate>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +106,7 @@ class Ads : Fragment() {
         }
     }
 
-    fun initRecyclerView() {
+    private fun initRecyclerView() {
         realestatelist.setHasFixedSize(true)
         realestatelist.layoutManager = LinearLayoutManager(context)
         realestatelist.adapter = adapter
@@ -139,11 +139,11 @@ class Ads : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if ((requestCode == 301) && (resultCode == Activity.RESULT_OK)) {
             if (data!!.data != null) {
-                uriList.add(data.data!!)
+                uriList.add(data.data!!.toString())
             } else if (data.clipData != null) {
-                var clipArray = data.clipData
+                val clipArray = data.clipData
                 for (i in 0 until clipArray!!.itemCount) {
-                    uriList.add(clipArray.getItemAt(i).uri)
+                    uriList.add(clipArray.getItemAt(i).uri.toString())
                 }
             }
         }

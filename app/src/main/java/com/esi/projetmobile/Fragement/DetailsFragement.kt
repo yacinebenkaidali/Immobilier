@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.esi.projetmobile.Model.RealEstate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.details_fragement.view.*
 
@@ -20,8 +21,11 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.details_fragement, container, false)
-        view.users_name.text = arguments!!.getString("Name")
-        view.users_img.setImageURI(Uri.parse(arguments!!.getString("Photo")))
+        val recievedRealEstate = arguments!!.getParcelable<RealEstate>("Parcelable")!!
+//        view.users_name.text = arguments!!.getString("Name")
+        view.users_img.setImageURI(Uri.parse(recievedRealEstate.images[0]))
+        view.users_name.text = recievedRealEstate.owner
+//        view.users_phone.text = recievedRealEstate.
         return view
     }
 

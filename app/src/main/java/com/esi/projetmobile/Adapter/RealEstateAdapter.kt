@@ -39,18 +39,19 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     override fun getItemCount(): Int {
         return realEstateListFiltered.size
     }
+
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
         if (realEstate.images.size != 0) {
-            p0.realEstatewImg.setImageURI(realEstate.images[0])//data base table will contain uri.toString() and when we get the object we'll use Uri.parse(that String)
+            p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))//data base table will contain uri.toString() and when we get the object we'll use Uri.parse(that String)
         }
         p0.detailButton.setOnClickListener {
             val args = Bundle()
-            args.putString("Name", realEstate.owner)
-//            args.putString("Phone",realEstate.phone)
-            args.putString("Photo",realEstate.images[0].toString())
+            args.putParcelable("Parcelable", realEstate)
+
+//            args.putString("Photo",realEstate.images[0].toString())
             Navigation.findNavController(it).navigate(R.id.action_ads_to_DetailFragment, args)
         }
         p0.itemCard.setOnClickListener {
@@ -63,7 +64,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         var itemCard = itemView.brand_card!!
         var ownerName = itemView.owner_name!!
         var squareFootage = itemView.square_foot!!
-        var realEstatewImg = itemView.realestate_image
+        var realEstatewImg = itemView.realestate_image!!
         var detailButton = itemView.realestate_but!!
     }
 

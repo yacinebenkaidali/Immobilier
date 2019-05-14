@@ -1,17 +1,26 @@
 package com.esi.projetmobile.Model
 
-import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Parcel
+import android.os.Parcelable
 
-class RealEstate() {
-
+class RealEstate() : Parcelable {
 
     var id: Int = 0
     var owner: String = ""
     var condition: String = ""
     var squareFootage: Double = 0.0
     var coordinates: String = ""
-    var images = mutableListOf<Uri>()
+    var images = mutableListOf<String>()
+
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readInt()
+        owner = parcel.readString()!!
+        condition = parcel.readString()!!
+        squareFootage = parcel.readDouble()
+        coordinates = parcel.readString()!!
+        parcel.readStringList(images)
+    }
 
     constructor(
         id: Int,
@@ -19,7 +28,7 @@ class RealEstate() {
         condition: String,
         squareFootage: Double,
         coordinates: String,
-        tmpList: MutableList<Uri>
+        tmpList: MutableList<String>
     ) : this() {
         this.id = id
         this.owner = owner
@@ -30,8 +39,27 @@ class RealEstate() {
     }
 
 
-    operator fun minus(real2: RealEstate): Double {
-        return (this.squareFootage - real2.squareFootage)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(owner)
+        parcel.writeString(condition)
+        parcel.writeDouble(squareFootage)
+        parcel.writeString(coordinates)
+        parcel.writeStringList(images)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<RealEstate> {
+        override fun createFromParcel(parcel: Parcel): RealEstate {
+            return RealEstate(parcel)
+        }
+
+        override fun newArray(size: Int): Array<RealEstate?> {
+            return arrayOfNulls(size)
+        }
     }
 
 }
