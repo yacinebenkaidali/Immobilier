@@ -1,6 +1,5 @@
 package com.esi.projetmobile
 
-import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import android.util.Log
