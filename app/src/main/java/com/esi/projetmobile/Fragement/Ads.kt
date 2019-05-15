@@ -68,17 +68,6 @@ class Ads : Fragment() {
             }
         }
 
-        activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                adapter.filter.filter(query)
-                return false
-            }
-
-            override fun onQueryTextChange(query: String): Boolean {
-                adapter.filter.filter(query)
-                return true
-            }
-        })
     }
 
     override fun onResume() {
@@ -99,6 +88,18 @@ class Ads : Fragment() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
+        activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(query: String): Boolean {
+                adapter.filter.filter(query)
+                return true
+            }
+        })
 
     }
 

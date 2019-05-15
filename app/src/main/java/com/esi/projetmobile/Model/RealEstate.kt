@@ -29,7 +29,6 @@ class RealEstate() : Parcelable {
         squareFootage: Double,
         coordinates: String
     ) : this() {
-
         this.id = id
         this.owner = owner
         this.condition = condition

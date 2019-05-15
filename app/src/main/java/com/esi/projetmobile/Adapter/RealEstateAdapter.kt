@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.realestate_item.view.*
 
 class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
-
-
     private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
     private val CALL_REQUEST = 100
 
@@ -38,16 +36,17 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     }
 
     override fun getItemCount(): Int {
-        return realEstateList.size
+        return realEstateListFiltered.size
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        val realEstate = realEstateList[p1]
+        val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
         if (realEstate.images.size != 0) {
-            Log.i("God", "owner name == ${realEstate.owner} and size == ${realEstate.images[0]}")
             p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
+        } else {
+            p0.realEstatewImg.setImageResource(R.drawable.skyscraper)
         }
         p0.detailButton.setOnClickListener {
             val args = Bundle()
@@ -65,6 +64,14 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         var squareFootage = itemView.square_foot!!
         var realEstatewImg = itemView.realestate_image!!
         var detailButton = itemView.realestate_but!!
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     override fun getFilter(): Filter {
@@ -91,7 +98,6 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                @Suppress("UNCHECKED_CAST")
                 realEstateListFiltered = filterResults.values as MutableList<RealEstate>
                 notifyDataSetChanged()
             }
@@ -151,5 +157,4 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         alert.setTitle("AlertDialogExample")
         alert.show()
     }
-
 }
