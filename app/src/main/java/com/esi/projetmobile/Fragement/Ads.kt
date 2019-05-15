@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import android.widget.SearchView
 import com.esi.projetmobile.Adapter.RealEstateAdapter
 import com.esi.projetmobile.Model.RealEstate
 import com.esi.projetmobile.R
-import com.esi.projetmobile.Utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
@@ -85,6 +83,7 @@ class Ads : Fragment() {
 
     override fun onResume() {
         super.onResume()
+//        adapter = RealEstateAdapter(realEstateList, context!!)
         spinner_sort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
@@ -100,6 +99,7 @@ class Ads : Fragment() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+
     }
 
     private fun initRecyclerView() {
@@ -155,10 +155,10 @@ class Ads : Fragment() {
         )
         realEstate.images.addAll(uriList)
         realEstateList.add(realEstate)
-//        adapter.addRealEtate(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
-//        uriList.clear()
+        uriList.clear()
 
     }
+
 
 }

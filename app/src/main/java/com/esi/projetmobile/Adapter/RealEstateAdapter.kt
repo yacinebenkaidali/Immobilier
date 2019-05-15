@@ -33,20 +33,20 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     private val CALL_REQUEST = 100
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        val view = LayoutInflater.from(p0.context).inflate(R.layout.realestate_item, p0, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.realestate_item, p0, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return realEstateListFiltered.size
+        return realEstateList.size
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        val realEstate = realEstateListFiltered[p1]
+        val realEstate = realEstateList[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
-        Log.i("God","owner name == ${realEstate.owner}"+realEstate.images.size.toString())
         if (realEstate.images.size != 0) {
+            Log.i("God", "owner name == ${realEstate.owner} and size == ${realEstate.images[0]}")
             p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
         }
         p0.detailButton.setOnClickListener {
@@ -114,6 +114,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             (real1.squareFootage - real2.squareFootage).toInt()
         })
     }
+
 
     private fun displayDialog(realEstate: RealEstate) {
         val dialogBuilder = AlertDialog.Builder(context)
