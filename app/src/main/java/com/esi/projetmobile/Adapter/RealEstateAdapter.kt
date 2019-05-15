@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,21 +45,19 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         val realEstate = realEstateListFiltered[p1]
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
+        Log.i("God","owner name == ${realEstate.owner}"+realEstate.images.size.toString())
         if (realEstate.images.size != 0) {
-            p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))//data base table will contain uri.toString() and when we get the object we'll use Uri.parse(that String)
+            p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
         }
         p0.detailButton.setOnClickListener {
             val args = Bundle()
             args.putParcelable("Parcelable", realEstate)
-
-//            args.putString("Photo",realEstate.images[0].toString())
             Navigation.findNavController(it).navigate(R.id.action_ads_to_DetailFragment, args)
         }
         p0.itemCard.setOnClickListener {
             displayDialog(realEstate)
         }
     }
-
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemCard = itemView.brand_card!!
@@ -92,6 +91,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                @Suppress("UNCHECKED_CAST")
                 realEstateListFiltered = filterResults.values as MutableList<RealEstate>
                 notifyDataSetChanged()
             }
@@ -112,7 +112,6 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     fun squareFootSort() {
         realEstateList.sortWith(Comparator { real1, real2 ->
             (real1.squareFootage - real2.squareFootage).toInt()
-
         })
     }
 
@@ -131,7 +130,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
             .setNegativeButton("Call his/her Phone") { dialog, id ->
                 val callIntent = Intent(Intent.ACTION_DIAL)
-                callIntent.data = Uri.parse("tel:" + 8802177690)//Owner's phone number
+                callIntent.data = Uri.parse("tel:" + 8802177690)
                 if (ContextCompat.checkSelfPermission(
                         context,
                         Manifest.permission.CALL_PHONE

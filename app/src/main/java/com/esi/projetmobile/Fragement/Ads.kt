@@ -24,13 +24,9 @@ import kotlinx.android.synthetic.main.fragment_ads.*
 
 
 class Ads : Fragment() {
-
-
     private var listener: OnFragmentInteractionListener? = null
-    private var utils = Utils()
     private lateinit var adapter: RealEstateAdapter
     private var uriList = mutableListOf<String>()
-
 
     private lateinit var realEstateList: MutableList<RealEstate>
 
@@ -134,7 +130,6 @@ class Ads : Fragment() {
         listener?.onFragmentInteraction(uri)
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if ((requestCode == 301) && (resultCode == Activity.RESULT_OK)) {
@@ -156,10 +151,14 @@ class Ads : Fragment() {
             mView.Cond.text.toString(),
             mView.SquareFoot.text.toString().toDouble(),
             "geo:37.7749,-122.4194",
-            uriList
+            mutableListOf()
         )
+        realEstate.images.addAll(uriList)
         realEstateList.add(realEstate)
+//        adapter.addRealEtate(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
+//        uriList.clear()
+
     }
 
 }

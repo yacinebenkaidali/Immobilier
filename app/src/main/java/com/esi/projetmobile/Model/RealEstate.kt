@@ -1,8 +1,8 @@
 package com.esi.projetmobile.Model
 
-import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 
 class RealEstate() : Parcelable {
 
@@ -27,6 +27,22 @@ class RealEstate() : Parcelable {
         owner: String,
         condition: String,
         squareFootage: Double,
+        coordinates: String
+    ) : this() {
+
+        this.id = id
+        this.owner = owner
+        this.condition = condition
+        this.squareFootage = squareFootage
+        this.coordinates = coordinates
+
+    }
+
+    constructor(
+        id: Int,
+        owner: String,
+        condition: String,
+        squareFootage: Double,
         coordinates: String,
         tmpList: MutableList<String>
     ) : this() {
@@ -35,7 +51,9 @@ class RealEstate() : Parcelable {
         this.condition = condition
         this.squareFootage = squareFootage
         this.coordinates = coordinates
+        Log.i("God", "About to do images")
         this.images = tmpList
+        Log.i("God", "Done with Images")
     }
 
 

@@ -25,7 +25,7 @@ class DetailsFragment : Fragment() {
 //        view.users_name.text = arguments!!.getString("Name")
         view.users_img.setImageURI(Uri.parse(recievedRealEstate.images[0]))
         view.users_name.text = recievedRealEstate.owner
-//        view.users_phone.text = recievedRealEstate.
+        //Phone number
         return view
     }
 
