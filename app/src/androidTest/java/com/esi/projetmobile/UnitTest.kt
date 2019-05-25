@@ -12,6 +12,7 @@ import com.esi.projetmobile.Model.Owner
 import com.esi.projetmobile.Utils.AppDatabase
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -71,9 +72,13 @@ class UnitTest {
             Image(2, "content://media/external/images/media/53", 2)
         )
         imagesDao!!.insertAllImages(list)
-//        imagesDao!!.insertImage( Image(1, 1, Uri.parse("content://media/external/images/media/52")))
         val count = imagesDao!!.getCount()
         assertEquals(2, count)
     }
 
+    @Test
+    fun getAllData() {
+        val list = ownerDao!!.getJoinedData()
+        assertNotNull(list)
+    }
 }
