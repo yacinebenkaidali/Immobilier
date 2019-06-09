@@ -5,7 +5,6 @@ import android.os.Parcelable
 import android.util.Log
 
 class RealEstate() : Parcelable {
-
     var id: Int = 0
     var owner: String = ""
     var condition: String = ""
@@ -70,7 +69,6 @@ class RealEstate() : Parcelable {
         override fun createFromParcel(parcel: Parcel): RealEstate {
             return RealEstate(parcel)
         }
-
         override fun newArray(size: Int): Array<RealEstate?> {
             return arrayOfNulls(size)
         }

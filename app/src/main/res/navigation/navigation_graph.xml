@@ -14,6 +14,7 @@
     </fragment>
     <fragment android:id="@+id/accountFragement" android:name="com.esi.projetmobile.fragment.AccountFragement"
               android:label="account_fragement" tools:layout="@layout/fragment_account_fragement"/>
+
     <fragment android:id="@+id/detailsFragement" android:name="com.esi.projetmobile.fragment.DetailsFragment"
               android:label="details_fragement" tools:layout="@layout/details_fragement"/>
 </navigation>
