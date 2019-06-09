@@ -1,4 +1,4 @@
-package com.esi.projetmobile.Fragement
+package com.esi.projetmobile.fragment
 
 import android.app.Activity
 import android.content.Context
@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
 import com.esi.projetmobile.Adapter.RealEstateAdapter
-import com.esi.projetmobile.Model.RealEstate
+import com.esi.projetmobile.model.RealEstate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
@@ -104,8 +104,6 @@ class Ads : Fragment() {
     }
 
     private fun initRecyclerView() {
-        realestatelist.setHasFixedSize(true)
-        realestatelist.layoutManager = LinearLayoutManager(context)
         realestatelist.adapter = adapter
     }
 

@@ -1,4 +1,4 @@
-package com.esi.projetmobile.Model
+package com.esi.projetmobile.model
 
 class Owner() {
     var id:Int =0

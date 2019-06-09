@@ -1,4 +1,4 @@
-package com.esi.projetmobile.Model
+package com.esi.projetmobile.model
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -34,7 +34,6 @@ class RealEstate() : Parcelable {
         this.condition = condition
         this.squareFootage = squareFootage
         this.coordinates = coordinates
-
     }
 
     constructor(
@@ -50,9 +49,7 @@ class RealEstate() : Parcelable {
         this.condition = condition
         this.squareFootage = squareFootage
         this.coordinates = coordinates
-        Log.i("God", "About to do images")
         this.images = tmpList
-        Log.i("God", "Done with Images")
     }
 
 
