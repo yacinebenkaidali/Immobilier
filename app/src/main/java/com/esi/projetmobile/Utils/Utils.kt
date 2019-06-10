@@ -7,9 +7,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.ParcelFileDescriptor
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import java.io.FileDescriptor
-import android.support.v4.app.ActivityCompat.startActivityForResult
+import androidx.core.app.ActivityCompat.startActivityForResult
 
 
 class Utils {

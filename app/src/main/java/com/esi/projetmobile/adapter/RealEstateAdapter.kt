@@ -8,9 +8,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +29,7 @@ import kotlin.Comparator
 
 
 class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
-    RecyclerView.Adapter<ViewHolder>(), Filterable {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>(), Filterable {
     private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
     private val CALL_REQUEST = 100
 
@@ -67,7 +67,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         }
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         var itemCard = itemView.brand_card!!
         var ownerName = itemView.owner_name!!
         var cityName = itemView.city_name!!

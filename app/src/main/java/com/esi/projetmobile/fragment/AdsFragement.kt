@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_ads.*
 import java.util.*
 
 
-class AdsFragement : Fragment() {
+class AdsFragement : androidx.fragment.app.Fragment() {
     private lateinit var adapter: RealEstateAdapter
     private var uriList = mutableListOf<String>()
 
