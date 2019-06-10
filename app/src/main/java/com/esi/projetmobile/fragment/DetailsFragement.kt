@@ -15,14 +15,14 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.details_fragement, container, false)
-        val recievedRealEstate = arguments!!.getParcelable<RealEstate>("Parcelable")!!
+        val recievedRealEstate = DetailsFragmentArgs.fromBundle(arguments!!).estate
         if (recievedRealEstate.images.isEmpty()) {
             view.grid_list.adapter=RealEstateGridAdapter(mutableListOf())
         } else {
             view.grid_list.adapter=RealEstateGridAdapter(recievedRealEstate.images)
         }
-        view.users_phone.append("he lives in ${recievedRealEstate.coordinates}")
-        view.users_name.append("his name is ${recievedRealEstate.owner}")
+        view.users_phone.append("he lives in ${recievedRealEstate.phone}")
+        view.users_name.append("his phone number is ${recievedRealEstate.owner}")
         return view
     }
 }

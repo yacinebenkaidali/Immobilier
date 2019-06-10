@@ -2,19 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_graph"
-            app:startDestination="@id/ads">
+            app:startDestination="@id/adsFragement">
 
     <fragment
-            android:id="@+id/ads"
-            android:name="com.esi.projetmobile.fragment.Ads"
+            android:id="@+id/adsFragement"
+            android:name="com.esi.projetmobile.fragment.AdsFragement"
             android:label="fragment_ads"
             tools:layout="@layout/fragment_ads">
-        <action android:id="@+id/action_ads_to_accountFragement" app:destination="@id/accountFragement"/>
         <action android:id="@+id/action_ads_to_DetailFragment" app:destination="@id/detailsFragement"/>
     </fragment>
-    <fragment android:id="@+id/accountFragement" android:name="com.esi.projetmobile.fragment.AccountFragement"
-              android:label="account_fragement" tools:layout="@layout/fragment_account_fragement"/>
 
     <fragment android:id="@+id/detailsFragement" android:name="com.esi.projetmobile.fragment.DetailsFragment"
-              android:label="details_fragement" tools:layout="@layout/details_fragement"/>
+              android:label="details_fragement" tools:layout="@layout/details_fragement">
+        <argument android:name="estate" app:argType="com.esi.projetmobile.model.RealEstate"/>
+    </fragment>
 </navigation>

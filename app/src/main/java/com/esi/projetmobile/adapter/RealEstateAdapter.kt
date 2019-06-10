@@ -18,10 +18,14 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.esi.projetmobile.adapter.RealEstateAdapter.ViewHolder
-import com.esi.projetmobile.model.RealEstate
 import com.esi.projetmobile.R
+import com.esi.projetmobile.adapter.RealEstateAdapter.ViewHolder
+import com.esi.projetmobile.fragment.AdsFragementDirections
+import com.esi.projetmobile.model.RealEstate
 import kotlinx.android.synthetic.main.realestate_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.Comparator
 
 
 class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
@@ -40,8 +44,14 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         val realEstate = realEstateListFiltered[p1]
+        val date= Date(realEstate.date)
+        val fmt = SimpleDateFormat("yyyy-MM-dd")
+
         p0.ownerName.text = realEstate.owner
         p0.squareFootage.text = realEstate.squareFootage.toString()
+        val dateString = fmt.format(date)
+        p0.dateDis.text = dateString
+        p0.cityName.text = context.getString(R.string.city, realEstate.wilaya)
         if (realEstate.images.size != 0) {
             p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
         } else {
@@ -50,7 +60,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         p0.detailButton.setOnClickListener {
             val args = Bundle()
             args.putParcelable("Parcelable", realEstate)
-            Navigation.findNavController(it).navigate(R.id.action_ads_to_DetailFragment, args)
+            Navigation.findNavController(it).navigate(AdsFragementDirections.actionAdsToDetailFragment(realEstate))
         }
         p0.itemCard.setOnClickListener {
             displayDialog(realEstate)
@@ -60,6 +70,8 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemCard = itemView.brand_card!!
         var ownerName = itemView.owner_name!!
+        var cityName = itemView.city_name!!
+        var dateDis = itemView.date_dis!!
         var squareFootage = itemView.square_foot!!
         var realEstatewImg = itemView.realestate_image!!
         var detailButton = itemView.realestate_but!!
@@ -82,7 +94,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
                 } else {
                     val filteredList = mutableListOf<RealEstate>()
                     for (row in realEstateList) {
-                        if (row.owner.toLowerCase().contains(charString.toLowerCase()) || row.condition.contains(
+                        if (row.owner.toLowerCase().contains(charString.toLowerCase()) || row.wilaya.toLowerCase().contains(
                                 charSequence
                             )
                         ) {
@@ -125,7 +137,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder.setTitle("Choose your action ?")
         dialogBuilder.setMessage("Which action u want to go to ?!")
-            .setCancelable(false)
+            .setCancelable(true)
             .setPositiveButton("Google Maps") { dialog, id ->
                 val gmmIntentUri = Uri.parse(realEstate.coordinates)
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
@@ -153,6 +165,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
 
             }
         val alert = dialogBuilder.create()
+        alert.setCanceledOnTouchOutside(true)
         alert.setTitle("AlertDialogExample")
         alert.show()
     }

@@ -12,7 +12,7 @@ class RealEstateGridAdapter(private var realEstateImages: MutableList<String>) :
     RecyclerView.Adapter<RealEstateGridAdapter.ViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
 
-        val view = LayoutInflater.from(p0.context).inflate(R.layout.etate_img_grid_item, p0, false)
+        val view = LayoutInflater.from(p0.context).inflate(R.layout.item, p0, false)
         return ViewHolder(view)
 
     }

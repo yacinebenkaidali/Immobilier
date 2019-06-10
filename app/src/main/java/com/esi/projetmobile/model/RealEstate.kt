@@ -2,22 +2,28 @@ package com.esi.projetmobile.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
+import java.util.*
 
 class RealEstate() : Parcelable {
     var id: Int = 0
     var owner: String = ""
-    var condition: String = ""
+    var wilaya: String = ""
     var squareFootage: Double = 0.0
     var coordinates: String = ""
+    var type: String = ""
+    var phone: String = ""
+    var date:Long=0L
     var images = mutableListOf<String>()
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
         owner = parcel.readString()!!
-        condition = parcel.readString()!!
+        wilaya = parcel.readString()!!
         squareFootage = parcel.readDouble()
         coordinates = parcel.readString()!!
+        type = parcel.readString()!!
+        phone = parcel.readString()!!
+        date = parcel.readLong()
         parcel.readStringList(images)
     }
 
@@ -26,38 +32,53 @@ class RealEstate() : Parcelable {
         owner: String,
         condition: String,
         squareFootage: Double,
-        coordinates: String
+        coordinates: String,
+        type: String,
+        phone:String,
+        long:Long
     ) : this() {
         this.id = id
         this.owner = owner
-        this.condition = condition
+        this.wilaya = condition
         this.squareFootage = squareFootage
         this.coordinates = coordinates
+        this.type = type
+        this.phone = phone
+        this.date = long
     }
 
     constructor(
         id: Int,
         owner: String,
-        condition: String,
+        wilaya: String,
         squareFootage: Double,
         coordinates: String,
+        type: String,
+        phone: String,
+        long: Long,
         tmpList: MutableList<String>
     ) : this() {
         this.id = id
         this.owner = owner
-        this.condition = condition
+        this.wilaya = wilaya
         this.squareFootage = squareFootage
         this.coordinates = coordinates
         this.images = tmpList
+        this.type=type
+        this.phone=phone
+        this.date=long
     }
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(owner)
-        parcel.writeString(condition)
+        parcel.writeString(wilaya)
         parcel.writeDouble(squareFootage)
         parcel.writeString(coordinates)
+        parcel.writeString(type)
+        parcel.writeString(phone)
+        parcel.writeLong(date)
         parcel.writeStringList(images)
     }
 
@@ -73,5 +94,5 @@ class RealEstate() : Parcelable {
             return arrayOfNulls(size)
         }
     }
-
+//TODO calcel Dialog boxes
 }

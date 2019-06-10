@@ -20,6 +20,13 @@
             android:layout_height="wrap_content"
             android:hint="Owner name"/>
 
+
+    <EditText
+            android:id="@+id/phone"
+            android:layout_width="300dp"
+            android:inputType="phone"
+            android:layout_height="wrap_content"
+            android:hint="phone"/>
     <EditText
             android:id="@+id/SquareFoot"
             android:layout_width="300dp"
@@ -28,10 +35,16 @@
             android:inputType="number"/>
 
     <EditText
+            android:id="@+id/type"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Type d'immobiler"
+            android:inputType="text"/>
+    <EditText
             android:id="@+id/Cond"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Condition"
+            android:hint="Wilaya"
     />
 
     <LinearLayout
