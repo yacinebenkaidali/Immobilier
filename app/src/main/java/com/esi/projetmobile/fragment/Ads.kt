@@ -7,13 +7,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
-import com.esi.projetmobile.Adapter.RealEstateAdapter
+import com.esi.projetmobile.adapter.RealEstateAdapter
 import com.esi.projetmobile.model.RealEstate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.activity_main.*

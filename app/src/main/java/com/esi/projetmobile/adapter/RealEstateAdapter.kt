@@ -1,4 +1,4 @@
-package com.esi.projetmobile.Adapter
+package com.esi.projetmobile.adapter
 
 import android.Manifest
 import android.app.Activity
@@ -18,7 +18,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.Toast
 import androidx.navigation.Navigation
-import com.esi.projetmobile.Adapter.RealEstateAdapter.ViewHolder
+import com.esi.projetmobile.adapter.RealEstateAdapter.ViewHolder
 import com.esi.projetmobile.model.RealEstate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.realestate_item.view.*
