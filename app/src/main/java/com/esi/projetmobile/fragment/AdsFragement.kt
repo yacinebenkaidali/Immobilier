@@ -171,16 +171,18 @@ class AdsFragement : Fragment() {
             mView.Cond.text.toString(),
             mView.SquareFoot.text.toString().toDouble(),
             "geo:37.7749,-122.4194",
-            mView.type.text.toString(),
+            mView.type.selectedItem.toString(),
             mView.phone.text.toString(),
             Date().time,
             mutableListOf()
         )
+        Log.i("","")
         realEstate.images.addAll(uriList)
         realEstateList.add(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
         uriList.clear()
     }
+    //mView.type.text.toString()
 
 
 }

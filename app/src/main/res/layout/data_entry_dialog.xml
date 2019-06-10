@@ -34,12 +34,10 @@
             android:hint="Square Footage"
             android:inputType="number"/>
 
-    <EditText
+    <Spinner
             android:id="@+id/type"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:hint="Type d'immobiler"
-            android:inputType="text"/>
+            android:layout_height="40dp" android:entries="@array/typeTerrain"/>
     <EditText
             android:id="@+id/Cond"
             android:layout_width="300dp"

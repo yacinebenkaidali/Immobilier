@@ -44,7 +44,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         val realEstate = realEstateListFiltered[p1]
-        val date= Date(realEstate.date)
+        val date = Date(realEstate.date)
         val fmt = SimpleDateFormat("yyyy-MM-dd")
 
         p0.ownerName.text = realEstate.owner
@@ -96,7 +96,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
                     for (row in realEstateList) {
                         if (row.owner.toLowerCase().contains(charString.toLowerCase()) || row.wilaya.toLowerCase().contains(
                                 charSequence
-                            )
+                            ) || (Date(row.date).toString().contains(charSequence))
                         ) {
                             filteredList.add(row)
                         }
