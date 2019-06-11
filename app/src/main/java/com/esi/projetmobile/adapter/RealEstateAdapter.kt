@@ -29,7 +29,7 @@ import kotlin.Comparator
 
 
 class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>(), Filterable {
+    RecyclerView.Adapter<ViewHolder>(), Filterable {
     private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
     private val CALL_REQUEST = 100
 
@@ -58,8 +58,6 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             p0.realEstatewImg.setImageResource(R.drawable.skyscraper)
         }
         p0.detailButton.setOnClickListener {
-            val args = Bundle()
-            args.putParcelable("Parcelable", realEstate)
             Navigation.findNavController(it).navigate(AdsFragementDirections.actionAdsToDetailFragment(realEstate))
         }
         p0.itemCard.setOnClickListener {
@@ -67,7 +65,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         }
     }
 
-    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemCard = itemView.brand_card!!
         var ownerName = itemView.owner_name!!
         var cityName = itemView.city_name!!
@@ -109,15 +107,11 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                @Suppress("UNCHECKED_CAST")
                 realEstateListFiltered = filterResults.values as MutableList<RealEstate>
                 notifyDataSetChanged()
             }
         }
-    }
-
-    fun addRealEtate(realEstate: RealEstate) {
-        realEstateListFiltered.add(realEstate)
-        realEstateList.add(realEstate)
     }
 
     fun ownerNameSort() {
@@ -129,6 +123,14 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     fun squareFootSort() {
         realEstateList.sortWith(Comparator { real1, real2 ->
             (real1.squareFootage - real2.squareFootage).toInt()
+        })
+    }
+
+    fun dateSort() {
+        realEstateList.sortWith(Comparator { real1, real2 ->
+            val date1 = Date(real1.date)
+            val date2 = Date(real2.date)
+            date1.compareTo(date2)
         })
     }
 
@@ -148,7 +150,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
             .setNegativeButton("Call his/her Phone") { dialog, id ->
                 val callIntent = Intent(Intent.ACTION_DIAL)
-                callIntent.data = Uri.parse("tel:" + 8802177690)
+                callIntent.data = Uri.parse("tel:" + realEstate.phone)
                 if (ContextCompat.checkSelfPermission(
                         context,
                         Manifest.permission.CALL_PHONE
@@ -166,7 +168,9 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             }
         val alert = dialogBuilder.create()
         alert.setCanceledOnTouchOutside(true)
-        alert.setTitle("AlertDialogExample")
+        alert.setTitle("Immobilier App")
         alert.show()
     }
+
+
 }

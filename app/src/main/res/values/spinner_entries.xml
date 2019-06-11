@@ -3,5 +3,6 @@
     <string-array name="spinnerChoices">
         <item>Owner</item>
         <item>SquareFootage</item>
+        <item>Date</item>
     </string-array>
 </resources>

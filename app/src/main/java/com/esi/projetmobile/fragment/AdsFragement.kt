@@ -123,8 +123,11 @@ class AdsFragement : androidx.fragment.app.Fragment() {
                     0 -> {
                         adapter.ownerNameSort()
                     }
-                    else -> {
+                    1-> {
                         adapter.squareFootSort()
+                    }
+                    else -> {
+                        adapter.dateSort()
                     }
                 }
                 adapter.notifyDataSetChanged()
@@ -176,13 +179,9 @@ class AdsFragement : androidx.fragment.app.Fragment() {
             Date().time,
             mutableListOf()
         )
-        Log.i("","")
         realEstate.images.addAll(uriList)
         realEstateList.add(realEstate)
         realestatelist.adapter!!.notifyDataSetChanged()
         uriList.clear()
     }
-    //mView.type.text.toString()
-
-
 }

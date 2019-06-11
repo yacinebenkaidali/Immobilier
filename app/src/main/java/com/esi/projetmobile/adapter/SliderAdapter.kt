@@ -11,8 +11,8 @@ import com.esi.projetmobile.R
 import com.smarteist.autoimageslider.SliderViewAdapter
 import kotlinx.android.synthetic.main.etate_img_grid_item.view.*
 
-class SliderAdapterExample(private val context: Context, private var realEstateImages: MutableList<String>) :
-    SliderViewAdapter<SliderAdapterExample.SliderAdapterVH>() {
+class SliderAdapter(private val context: Context, private var realEstateImages: MutableList<String>) :
+    SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
     override fun getCount(): Int = realEstateImages.size
     override fun onCreateViewHolder(parent: ViewGroup): SliderAdapterVH {
         val inflate = LayoutInflater.from(parent.context).inflate(R.layout.etate_img_grid_item, null)
@@ -21,7 +21,6 @@ class SliderAdapterExample(private val context: Context, private var realEstateI
 
     override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
         viewHolder.imageViewBackground.setImageURI(Uri.parse(realEstateImages[position]))
-//TODO here's where you do the magic
     }
 
     class SliderAdapterVH(itemView: View) : SliderViewAdapter.ViewHolder(itemView) {
