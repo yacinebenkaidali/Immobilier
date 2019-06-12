@@ -15,6 +15,7 @@
             android:textSize="24sp"/>
 
     <EditText
+            android:text=""
             android:id="@+id/Owner"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -22,12 +23,14 @@
 
 
     <EditText
+            android:text=""
             android:id="@+id/phone"
             android:layout_width="300dp"
             android:inputType="phone"
             android:layout_height="wrap_content"
             android:hint="phone"/>
     <EditText
+            android:text=""
             android:id="@+id/SquareFoot"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -39,6 +42,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp" android:entries="@array/typeTerrain"/>
     <EditText
+            android:text=""
             android:id="@+id/Cond"
             android:layout_width="300dp"
             android:layout_height="wrap_content"

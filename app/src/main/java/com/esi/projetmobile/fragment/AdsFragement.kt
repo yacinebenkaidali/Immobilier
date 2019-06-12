@@ -112,18 +112,24 @@ class AdsFragement : androidx.fragment.app.Fragment() {
                 dialog.dismiss()
             }
         }
+        activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter.filter.filter(query)
+                return false
+            }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
+            override fun onQueryTextChange(query: String): Boolean {
+                adapter.filter.filter(query)
+                return true
+            }
+        })
         spinner_sort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
                         adapter.ownerNameSort()
                     }
-                    1-> {
+                    1 -> {
                         adapter.squareFootSort()
                     }
                     else -> {
@@ -136,22 +142,10 @@ class AdsFragement : androidx.fragment.app.Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                adapter.filter.filter(query)
-                return false
-            }
-
-            override fun onQueryTextChange(query: String): Boolean {
-                adapter.filter.filter(query)
-                return true
-            }
-        })
     }
     private fun initRecyclerView() {
         realestatelist.adapter = adapter
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

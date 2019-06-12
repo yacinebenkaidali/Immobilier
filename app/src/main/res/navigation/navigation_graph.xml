@@ -9,7 +9,9 @@
             android:name="com.esi.projetmobile.fragment.AdsFragement"
             android:label="fragment_ads"
             tools:layout="@layout/fragment_ads">
-        <action android:id="@+id/action_ads_to_DetailFragment" app:destination="@id/detailsFragement"/>
+        <action android:id="@+id/action_ads_to_DetailFragment" app:destination="@id/detailsFragement"
+                app:enterAnim="@anim/slide_in_right" app:exitAnim="@anim/slide_out_left"
+                app:popExitAnim="@anim/slide_out_left" app:popEnterAnim="@anim/slide_in_right"/>
     </fragment>
 
     <fragment android:id="@+id/detailsFragement" android:name="com.esi.projetmobile.fragment.DetailsFragment"
