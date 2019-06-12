@@ -1,13 +1,9 @@
 package com.esi.projetmobile.fragment
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +13,6 @@ import com.esi.projetmobile.adapter.RealEstateAdapter
 import com.esi.projetmobile.model.RealEstate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.data_entry_dialog.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
 import java.util.*
@@ -127,7 +122,7 @@ class AdsFragement : androidx.fragment.app.Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        adapter.ownerNameSort()
+                        adapter.wilayaNameSort()
                     }
                     1 -> {
                         adapter.squareFootSort()

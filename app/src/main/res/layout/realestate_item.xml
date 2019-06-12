@@ -42,32 +42,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/realestate_image">
 
             <TextView
-                    android:id="@+id/textView4"
-                    style="@style/MediumLight"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Area ="
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
                     android:id="@+id/square_foot"
                     style="@style/LargeDarkBold"
-                    android:layout_marginStart="5dp"
                     android:text="SOVAC"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                    app:layout_constraintStart_toEndOf="@+id/textView4"
-                    android:textColor="@color/colorPrimaryExtraDark"/>
-            <Button
-                    android:text="GotoOwner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/realestate_but" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="36dp"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"/>
+                    android:textColor="@color/colorPrimaryExtraDark"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
             <TextView
                     android:text="date"
                     android:textColor="@color/colorPrimaryExtraDark"
@@ -75,14 +55,12 @@
                     android:layout_height="wrap_content" android:id="@+id/date_dis"
                     app:layout_constraintBottom_toBottomOf="parent"
                     style="@style/LargeDarkBold"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/realestate_but"
-                    app:layout_constraintStart_toStartOf="@+id/realestate_but"
-                    app:layout_constraintHorizontal_bias="0.457"
-                    app:layout_constraintTop_toBottomOf="@+id/realestate_but"/>
+                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                    android:fontFamily="casual"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
-                android:text="City is :"
+                android:text="wilaya"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/city_name"

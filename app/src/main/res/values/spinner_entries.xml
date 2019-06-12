@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinnerChoices" >
-        <item>Owner</item>
+        <item>Wilaya</item>
         <item>SquareFootage</item>
         <item>Date</item>
     </string-array>

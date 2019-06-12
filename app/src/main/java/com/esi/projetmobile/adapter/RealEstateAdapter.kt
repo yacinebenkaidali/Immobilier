@@ -31,7 +31,6 @@ import kotlin.Comparator
 class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, private var context: Context) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
     private var realEstateListFiltered: MutableList<RealEstate> = realEstateList
-    private val CALL_REQUEST = 100
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.realestate_item, p0, false)
@@ -48,20 +47,19 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         val fmt = SimpleDateFormat("yyyy-MM-dd")
 
         p0.ownerName.text = realEstate.owner
-        p0.squareFootage.text = realEstate.squareFootage.toString()
+        p0.squareFootage.text = context.getString(R.string.area,realEstate.squareFootage.toString())
         val dateString = fmt.format(date)
         p0.dateDis.text = dateString
-        p0.cityName.text = context.getString(R.string.city, realEstate.wilaya)
+        p0.cityName.text = realEstate.wilaya
         if (realEstate.images.size != 0) {
             p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
         } else {
             p0.realEstatewImg.setImageResource(R.drawable.skyscraper)
         }
-        p0.detailButton.setOnClickListener {
-            Navigation.findNavController(it).navigate(AdsFragementDirections.actionAdsToDetailFragment(realEstate))
-        }
+
         p0.itemCard.setOnClickListener {
-            displayDialog(realEstate)
+            Navigation.findNavController(it).navigate(AdsFragementDirections.actionAdsToDetailFragment(realEstate))
+
         }
     }
 
@@ -72,7 +70,6 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         var dateDis = itemView.date_dis!!
         var squareFootage = itemView.square_foot!!
         var realEstatewImg = itemView.realestate_image!!
-        var detailButton = itemView.realestate_but!!
     }
 
     override fun getItemId(position: Int): Long {
@@ -114,9 +111,9 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         }
     }
 
-    fun ownerNameSort() {
+    fun wilayaNameSort() {
         realEstateList.sortWith(Comparator { real1, real2 ->
-            real1.owner.compareTo(real2.owner)
+            real1.wilaya.compareTo(real2.wilaya)
         })
     }
 
@@ -135,42 +132,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
     }
 
 
-    private fun displayDialog(realEstate: RealEstate) {
-        val dialogBuilder = AlertDialog.Builder(context)
-        dialogBuilder.setTitle("Choose your action ?")
-        dialogBuilder.setMessage("Which action u want to go to ?!")
-            .setCancelable(true)
-            .setPositiveButton("Google Maps") { dialog, id ->
-                val gmmIntentUri = Uri.parse(realEstate.coordinates)
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                mapIntent.setPackage("com.google.android.apps.maps")
-                if (mapIntent.resolveActivity(context.packageManager) != null) {
-                    context.startActivity(mapIntent)
-                }
-            }
-            .setNegativeButton("Call his/her Phone") { dialog, id ->
-                val callIntent = Intent(Intent.ACTION_DIAL)
-                callIntent.data = Uri.parse("tel:" + realEstate.phone)
-                if (ContextCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.CALL_PHONE
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        context as Activity
-                        , arrayOf(Manifest.permission.CALL_PHONE), CALL_REQUEST
-                    )
-                    Toast.makeText(context, "grant me permissions", Toast.LENGTH_LONG).show()
-                } else {
-                    context.startActivity(callIntent)
-                }
 
-            }
-        val alert = dialogBuilder.create()
-        alert.setCanceledOnTouchOutside(true)
-        alert.setTitle("Immobilier App")
-        alert.show()
-    }
 
 
 }
