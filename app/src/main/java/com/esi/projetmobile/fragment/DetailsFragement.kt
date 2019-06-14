@@ -26,25 +26,32 @@ class DetailsFragment : Fragment() {
         const val CALL_REQUEST = 100
     }
 
+    private var recievedRealEstate: RealEstate? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.details_fragement, container, false)
-        val recievedRealEstate = DetailsFragmentArgs.fromBundle(arguments!!).estate //type safe argument
+
+        recievedRealEstate = savedInstanceState?.getParcelable("Object")
+        if (recievedRealEstate == null) {
+            recievedRealEstate = DetailsFragmentArgs.fromBundle(arguments!!).estate //type safe argument
+        }
+
         arguments!!.clear()
-        view.users_phone.text = recievedRealEstate.phone
-        view.users_name.text = recievedRealEstate.owner
-        view.user_wilaya.text = recievedRealEstate.wilaya
+        view.users_phone.text = recievedRealEstate?.phone
+        view.users_name.text = recievedRealEstate?.owner
+        view.user_wilaya.text = recievedRealEstate?.wilaya
 
         view.user_call.setOnClickListener {
-            callIntent(recievedRealEstate)
+            callIntent(recievedRealEstate!!)
         }
         view.user_goto.setOnClickListener {
-            mapIntent(recievedRealEstate)
+            mapIntent(recievedRealEstate!!)
         }
 
-        view.imageSlider.sliderAdapter = SliderAdapter(context!!, recievedRealEstate.images)
+        view.imageSlider.sliderAdapter = SliderAdapter(context!!, recievedRealEstate!!.images)
         view.imageSlider.startAutoCycle()
         view.imageSlider.setIndicatorAnimation(IndicatorAnimations.SWAP)
         view.imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
@@ -69,6 +76,7 @@ class DetailsFragment : Fragment() {
             context?.startActivity(callIntent)
         }
     }
+
     private fun mapIntent(recievedRealEstate: RealEstate) {
         val gmmIntentUri = Uri.parse(recievedRealEstate.coordinates)
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
@@ -78,4 +86,8 @@ class DetailsFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("Object", recievedRealEstate)
+    }
 }
