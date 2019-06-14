@@ -1,23 +1,14 @@
 package com.esi.projetmobile.adapter
 
-import android.Manifest
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import com.esi.projetmobile.R
 import com.esi.projetmobile.adapter.RealEstateAdapter.ViewHolder
 import com.esi.projetmobile.fragment.AdsFragementDirections
@@ -130,9 +121,4 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
             date1.compareTo(date2)
         })
     }
-
-
-
-
-
 }
