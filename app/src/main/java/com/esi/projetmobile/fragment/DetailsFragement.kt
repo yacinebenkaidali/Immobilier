@@ -33,7 +33,6 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.details_fragement, container, false)
-
         recievedRealEstate = savedInstanceState?.getParcelable("Object")
         if (recievedRealEstate == null) {
             recievedRealEstate = DetailsFragmentArgs.fromBundle(arguments!!).estate //type safe argument

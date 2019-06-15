@@ -1,6 +1,8 @@
 package com.esi.projetmobile.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,10 @@ import com.esi.projetmobile.R
 import com.esi.projetmobile.adapter.RealEstateAdapter.ViewHolder
 import com.esi.projetmobile.fragment.AdsFragementDirections
 import com.esi.projetmobile.model.RealEstate
+import com.esi.projetmobile.utils.getBitmapFromUri
+import com.esi.projetmobile.utils.getCompressedBitmap
 import kotlinx.android.synthetic.main.realestate_item.view.*
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.Comparator
@@ -36,14 +41,16 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
         val realEstate = realEstateListFiltered[p1]
         val date = Date(realEstate.date)
         val fmt = SimpleDateFormat("yyyy-MM-dd")
-
+        val bytearrayoutputstream = ByteArrayOutputStream()
         p0.ownerName.text = realEstate.owner
-        p0.squareFootage.text = context.getString(R.string.area,realEstate.squareFootage.toString())
+        p0.squareFootage.text = context.getString(R.string.area, realEstate.squareFootage.toString())
         val dateString = fmt.format(date)
         p0.dateDis.text = dateString
         p0.cityName.text = realEstate.wilaya
         if (realEstate.images.size != 0) {
-            p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
+            val bitmapRes = getCompressedBitmap(realEstate, bytearrayoutputstream,context)
+            p0.realEstatewImg.setImageBitmap(bitmapRes)
+//            p0.realEstatewImg.setImageURI(Uri.parse(realEstate.images[0]))
         } else {
             p0.realEstatewImg.setImageResource(R.drawable.skyscraper)
         }
@@ -53,6 +60,7 @@ class RealEstateAdapter(private var realEstateList: MutableList<RealEstate>, pri
 
         }
     }
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemCard = itemView.brand_card!!
