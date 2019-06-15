@@ -1,9 +1,6 @@
 package com.esi.projetmobile.adapter
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +12,6 @@ import com.esi.projetmobile.R
 import com.esi.projetmobile.adapter.RealEstateAdapter.ViewHolder
 import com.esi.projetmobile.fragment.AdsFragementDirections
 import com.esi.projetmobile.model.RealEstate
-import com.esi.projetmobile.utils.getBitmapFromUri
 import com.esi.projetmobile.utils.getCompressedBitmap
 import kotlinx.android.synthetic.main.realestate_item.view.*
 import java.io.ByteArrayOutputStream
