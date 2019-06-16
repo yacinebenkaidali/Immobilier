@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">Immobilier</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="font_bold">sans-serif-medium</string>
-    <string name="font_light">sans-serif</string>
     <string name="mercedes">Mercedes</string>
-    <string name="city">City is %s</string>
     <string name="area">%s m^2</string>
 </resources>

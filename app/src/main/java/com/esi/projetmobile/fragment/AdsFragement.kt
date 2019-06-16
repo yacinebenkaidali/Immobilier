@@ -3,6 +3,7 @@ package com.esi.projetmobile.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +17,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AdsFragement : androidx.fragment.app.Fragment() {
     private lateinit var adapter: RealEstateAdapter
     private var uriList = mutableListOf<String>()
 
-    private lateinit var realEstateList: MutableList<RealEstate>
-
+    private  var realEstateList= mutableListOf<RealEstate>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         realEstateList = mutableListOf(
@@ -78,6 +79,9 @@ class AdsFragement : androidx.fragment.app.Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        savedInstanceState?.let {
+            realEstateList= it.getParcelableArrayList("listObjects")!!
+        }
         return inflater.inflate(R.layout.fragment_ads, container, false)
     }
 
@@ -140,6 +144,12 @@ class AdsFragement : androidx.fragment.app.Fragment() {
     }
     private fun initRecyclerView() {
         realestatelist.adapter = adapter
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val list =realEstateList.toList()
+        outState.putParcelableArrayList("listObjects",list as java.util.ArrayList<out Parcelable>)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
