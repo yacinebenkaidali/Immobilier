@@ -29,26 +29,6 @@ class RealEstate() : Parcelable {
     constructor(
         id: Int,
         owner: String,
-        condition: String,
-        squareFootage: Double,
-        coordinates: String,
-        type: String,
-        phone:String,
-        long:Long
-    ) : this() {
-        this.id = id
-        this.owner = owner
-        this.wilaya = condition
-        this.squareFootage = squareFootage
-        this.coordinates = coordinates
-        this.type = type
-        this.phone = phone
-        this.date = long
-    }
-
-    constructor(
-        id: Int,
-        owner: String,
         wilaya: String,
         squareFootage: Double,
         coordinates: String,
@@ -93,5 +73,4 @@ class RealEstate() : Parcelable {
             return arrayOfNulls(size)
         }
     }
-//TODO calcel Dialog boxes
 }

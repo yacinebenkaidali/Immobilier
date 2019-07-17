@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import com.esi.projetmobile.model.RealEstate
-import java.io.ByteArrayOutputStream
 import java.io.FileDescriptor
 
 
@@ -20,22 +19,18 @@ fun getBitmapFromUri(uri: Uri, context: Context): Bitmap {
 
 fun getCompressedBitmap(
     imageUrl: String,
-    bytearrayoutputstream: ByteArrayOutputStream, context: Context
+    context: Context
 ): Bitmap? {
     val bitmap = getBitmapFromUri(Uri.parse(imageUrl), context)
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytearrayoutputstream)
-    val bytes = bytearrayoutputstream.toByteArray()
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    return Bitmap.createScaledBitmap(bitmap, 250, 200, true)
 }
 
 fun getCompressedBitmap(
     realEstate: RealEstate,
-    bytearrayoutputstream: ByteArrayOutputStream, context: Context
+    context: Context
 ): Bitmap? {
     val bitmap = getBitmapFromUri(Uri.parse(realEstate.images[0]), context)
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytearrayoutputstream)
-    val bytes = bytearrayoutputstream.toByteArray()
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+    return Bitmap.createScaledBitmap(bitmap, (bitmap.width * 0.7).toInt(), (bitmap.height * 0.7).toInt(), true)
 }
 
 

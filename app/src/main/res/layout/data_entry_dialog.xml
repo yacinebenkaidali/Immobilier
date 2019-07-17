@@ -53,10 +53,10 @@
     </LinearLayout>
     <EditText
             android:text=""
-            android:id="@+id/Cond"
+            android:id="@+id/Phone"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Wilaya"
+            android:hint="Address"
     />
 
     <LinearLayout

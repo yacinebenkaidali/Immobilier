@@ -10,21 +10,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.esi.projetmobile.adapter.RealEstateAdapter
 import com.esi.projetmobile.model.RealEstate
 import com.esi.projetmobile.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.data_entry_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_ads.*
+import java.lang.Exception
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class AdsFragement : androidx.fragment.app.Fragment() {
+class AdsFragement : Fragment() {
     private lateinit var adapter: RealEstateAdapter
     private var uriList = mutableListOf<String>()
 
-    private  var realEstateList= mutableListOf<RealEstate>()
+    private var realEstateList = mutableListOf<RealEstate>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         realEstateList = mutableListOf(
@@ -80,36 +83,22 @@ class AdsFragement : androidx.fragment.app.Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         savedInstanceState?.let {
-            realEstateList= it.getParcelableArrayList("listObjects")!!
+            realEstateList = it.getParcelableArrayList("listObjects")!!
         }
         return inflater.inflate(R.layout.fragment_ads, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = RealEstateAdapter(realEstateList, context!!)
+        adapter = RealEstateAdapter(realEstateList, context!!, object : RealEstateAdapter.OnItemClickListener {
+            override fun invoke(estate: RealEstate) {
+                Navigation.findNavController(view).navigate(AdsFragementDirections.actionAdsToDetailFragment(estate))
+            }
+
+        })
         initRecyclerView()
         addrealestate.setOnClickListener {
-            val mBuilder = AlertDialog.Builder(context!!)
-            val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
-            mBuilder.setView(mView)
-            val dialog = mBuilder.create()
-            dialog.setCancelable(true)
-            dialog.setCanceledOnTouchOutside(true)
-            dialog.show()
-            mView.btnImg.setOnClickListener {
-                val intent = Intent()
-                    .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    .setAction(Intent.ACTION_GET_CONTENT)
-                startActivityForResult(Intent.createChooser(intent, "Select a file"), 301)
-            }
-            mView.btnCancel.setOnClickListener {
-                dialog.dismiss()
-            }
-            mView.btnOk.setOnClickListener {
-                addItem(mView)
-                dialog.dismiss()
-            }
+            dialogFunction()
         }
         activity!!.filterList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -142,14 +131,38 @@ class AdsFragement : androidx.fragment.app.Fragment() {
         }
 
     }
+
+    private fun dialogFunction() {
+        val mBuilder = AlertDialog.Builder(context!!)
+        val mView = layoutInflater.inflate(R.layout.data_entry_dialog, null)
+        mBuilder.setView(mView)
+        val dialog = mBuilder.create()
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
+        mView.btnImg.setOnClickListener {
+            val intent = Intent()
+                .setType("image/*").putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                .setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent, "Select a file"), 301)
+        }
+        mView.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        mView.btnOk.setOnClickListener {
+            addItem(mView)
+            dialog.dismiss()
+        }
+    }
+
     private fun initRecyclerView() {
         realestatelist.adapter = adapter
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val list =realEstateList.toList()
-        outState.putParcelableArrayList("listObjects",list as java.util.ArrayList<out Parcelable>)
+        val list = realEstateList.toList()
+        outState.putParcelableArrayList("listObjects", list as ArrayList<out Parcelable>)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -167,19 +180,24 @@ class AdsFragement : androidx.fragment.app.Fragment() {
     }
 
     private fun addItem(mView: View) {
-        val realEstate = RealEstate(
-            1,
-            mView.Owner.text.toString(),
-            mView.Cond.text.toString(),
-            mView.SquareFoot.text.toString().toDouble(),
-            "geo:37.7749,-122.4194",
-            mView.type.selectedItem.toString(),
-            mView.phone.text.toString(),
-            Date().time,
-            mutableListOf()
-        )
-        realEstate.images.addAll(uriList)
-        realEstateList.add(realEstate)
+        var realEstate: RealEstate? = null
+        try {
+            realEstate = RealEstate(
+                1,
+                mView.Owner.text.toString(),
+                mView.Phone.text.toString(),
+                mView.SquareFoot.text.toString().toDouble(),
+                "geo:37.7749,-122.4194",
+                mView.type.selectedItem.toString(),
+                mView.phone.text.toString(),
+                Date().time,
+                mutableListOf()
+            )
+        } catch (e: Exception) {
+            Toast.makeText(context, "Please Fill All the details", Toast.LENGTH_SHORT).show()
+        }
+        realEstate?.images?.addAll(uriList)
+        realEstateList.add(realEstate!!)
         realestatelist.adapter!!.notifyDataSetChanged()
         uriList.clear()
     }

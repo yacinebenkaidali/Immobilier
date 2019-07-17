@@ -76,7 +76,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun mapIntent(recievedRealEstate: RealEstate) {
-        val gmmIntentUri = Uri.parse(recievedRealEstate.coordinates)
+        val gmmIntentUri = Uri.parse("geo:0,0?q=${recievedRealEstate.wilaya}")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         if (mapIntent.resolveActivity(context?.packageManager!!) != null) {

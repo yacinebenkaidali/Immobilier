@@ -23,7 +23,7 @@ class SliderAdapter(private val context: Context, private var realEstateImages: 
 
     override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
         val bytearrayoutputstream = ByteArrayOutputStream()
-        val bitmap = getCompressedBitmap(realEstateImages[position], bytearrayoutputstream,context)
+        val bitmap = getCompressedBitmap(realEstateImages[position], context)
         viewHolder.imageViewBackground.setImageBitmap(bitmap)
     }
 
